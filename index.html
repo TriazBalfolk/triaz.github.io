@@ -18,11 +18,109 @@
         David, Jonathan und Antonin sind sich im Frühjahr 2025 durch glückliche Zufälle in der Leipziger Bal Folk Szene begegnet und haben sofort gemerkt, dass sie in der Konstellation ihrer Instrumente die perfekte Grundlage für eine Band bilden. Auf der Suche nach ihrem Sound spielen sie eine Reihe eigener Kompositionen, ergänzt durch traditionelle Tunes und ausgewählte Cover anderer Bal Folk Musiker. Rhythmisch komplex und trotzdem klar, mit viel Power und doch einfühlsam, erschaffen sie ein Klang- und Tanzerlebnis, das auch für sie selbst noch neu ist!
       </p>
       <p style="text-align: center; font-size: 1.2em; margin-top: 20px;">
-        Kontakt: <span id="email"></span>
+        Kontakt: <span id="email" class="email-pop"></span>
       </p>
       <script>
-        document.getElementById("email").innerHTML = "info (at) triaz-balfolk (punkt) de";
+        // Assemble the email address in JS
+        const user = "info";
+        const domain = "triaz-balfolk.de";
+        const email = user + "@" + domain;
+        document.getElementById("email").innerHTML =
+          `<a href="mailto:${email}" style="color:inherit;text-decoration:none;">${email}</a>`;
       </script>
+      <!-- Add a divider line -->
+      <hr style="border: 1px solid #efefef; margin: 20px auto; width: 80%;">
+
+      <h2>Live @ TuV'25 in Waldheim</h2>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/fcMzRe2gf4w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="max-width: 100%; border-radius: 15px;"></iframe>
+      </div>
+
+      <!-- Add another divider and a section for past and upcoming shows, 
+       automatically sort them in the correct category by the date! 
+       Each show should have a date and a city name -->
+      <hr style="border: 1px solid #efefef; margin: 20px auto; width: 80%;">
+      <script>
+        const shows = [
+          { date: '26.05.2025', city: 'Leipzig, Kulturnhalle' },
+          { date: '28.05.2025', city: 'Waldheim, Tanz & Verbindung Festival' },
+          { date: '25.10.2025', city: 'Dresden' },
+          { date: 'xx.xx.2026', city: 'Leipzig, Kulturnhalle (tba)' }, // ambiguous
+          { date: 'xx.09.2025', city: 'Hamburg, NordFolkFestival (tba)' }   // ambiguous month
+        ];
+
+        // Helper to parse DD.MM.YYYY or ambiguous dates
+        function parseGermanDate(dateStr) {
+          const [day, month, year] = dateStr.split('.');
+          if (day === 'xx' || month === 'xx' || !year) return null;
+          return new Date(Number(year), Number(month) - 1, Number(day));
+        }
+
+        // Helper to check if a date is ambiguous
+        function isAmbiguous(dateStr) {
+          return dateStr.includes('xx');
+        }
+
+        // Helper to get a sortable value for ambiguous dates
+        function ambiguousSortValue(dateStr) {
+          const [day, month, year] = dateStr.split('.');
+          // Use 31 for unknown day, 12 for unknown month
+          const d = day === 'xx' ? 31 : Number(day);
+          const m = month === 'xx' ? 12 : Number(month);
+          return new Date(Number(year), m - 1, d).getTime();
+        }
+
+        const today = new Date();
+
+        // Combine all shows and sort by best-guess date
+        const allShows = shows.slice().sort((a, b) => {
+          const aDate = isAmbiguous(a.date) ? ambiguousSortValue(a.date) : parseGermanDate(a.date).getTime();
+          const bDate = isAmbiguous(b.date) ? ambiguousSortValue(b.date) : parseGermanDate(b.date).getTime();
+          return aDate - bDate;
+        });
+
+        // Split into upcoming and past (ambiguous always treated as future)
+        const pastShows = allShows.filter(show => !isAmbiguous(show.date) && parseGermanDate(show.date) < today).reverse();
+        const upcomingShows = allShows.filter(show => isAmbiguous(show.date) || parseGermanDate(show.date) >= today);
+
+        function displayShows(shows, title) {
+          if (shows.length > 0) {
+            document.write(`<h3>${title}</h3>`);
+            document.write('<ul>');
+            shows.forEach(show => {
+              document.write(`<li>${show.date} - ${show.city}</li>`);
+            });
+            document.write('</ul>');
+          }
+        }
+
+        displayShows(upcomingShows, 'Kommende Auftritte');
+        displayShows(pastShows, 'Vergangene Auftritte');
+      </script>
+
+      <!-- Gallery Section -->
+      <hr style="border: 1px solid #efefef; margin: 20px auto; width: 80%;">
+      <h2>Bildergalerie</h2>
+      <div class="gallery">
+        <!-- Add your images here -->
+        <img src="pictures/DSC_6890.JPG" alt="Galeriebild 1" class="gallery-img">
+        <img src="pictures/DSC_6891.JPG" alt="Galeriebild 2" class="gallery-img">
+        <img src="pictures/DSC_6896.JPG" alt="Galeriebild 3" class="gallery-img">
+        <img src="pictures/DSC_6918.JPG" alt="Galeriebild 4" class="gallery-img">
+        <img src="pictures/DSC_6919.JPG" alt="Galeriebild 5" class="gallery-img">
+        <img src="pictures/DSC_6923.JPG" alt="Galeriebild 6" class="gallery-img">
+        <img src="pictures/DSC_6924.JPG" alt="Galeriebild 7" class="gallery-img">
+        <img src="pictures/DSC_6925.JPG" alt="Galeriebild 8" class="gallery-img">
+        <img src="pictures/DSC_6929.JPG" alt="Galeriebild 9" class="gallery-img">
+        
+        <!-- Add/remove <img> tags as needed for your pictures -->
+      </div>
+      <!-- Modal for enlarged image -->
+      <div id="gallery-modal" class="gallery-modal">
+        <span class="gallery-close" id="gallery-close">&times;</span>
+        <img class="gallery-modal-content" id="gallery-modal-img" alt="">
+      </div>
+
     </div>
 
     <style>
@@ -32,14 +130,7 @@
         color: #efefef; 
         margin: 0; 
         padding: 0;
-        /* Remove flex centering for better scroll and responsiveness */
-        /* display: flex; */
-        /* justify-content: center; */
-        /* align-items: center; */
         height: auto;
-        text-align: center;
-        /* overflow: hidden; */ /* Remove this line to allow scrolling */
-        /* position: relative; */
         z-index: 0;
         background: transparent !important;
       }
@@ -49,17 +140,26 @@
         color: #efefef;
         text-align: center;
         margin-top: 20px;
-        font-size: 2.5em;
+        font-size: 2.2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      h2 {
+        font-family: 'Verdana', sans-serif;
+        font-weight: bold;
+        color: #efefef;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1.5em;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       }
       p {
         font-family: 'Verdana', sans-serif;
         line-height: 1.6;
         color: #efefef;
-        font-size: 1.2em;
+        font-size: 1.1em;
         margin: 20px 0;
         text-align: justify;
-        padding: 0 20px; /* Add padding for better readability */
+        padding: 0 20px;
       }
       .main-container {
         background-color: #232323;
@@ -91,6 +191,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease;
         border-radius: 15px;
+        text-align: center;
       }
       /* Add hover effect to logo, both for entering and leaving logo */
       /* When hovering over logo, change background color of body*/
@@ -151,12 +252,20 @@
           max-width: 98vw;
         }
         h1 {
-          font-size: 1.5em;
+          font-size: 1.2em;
           margin-top: 10px;
+          text-align: center;
+        }
+        h2 {
+          font-size: 1.1em;
         }
         p {
-          font-size: 1em;
+          font-size: 0.95em;
           margin: 10px 0;
+          text-align: center;
+        }
+        .email-pop {
+          font-size: 1em;
         }
         body {
           padding: 0;
@@ -165,6 +274,136 @@
           overflow: auto;
         }
       }
+
+      .email-pop {
+        display: inline-block;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #232323;
+        background: linear-gradient(90deg, #ffe066 0%, #ffd700 100%);
+        padding: 3px 9px;
+        border-radius: 9px;
+        box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
+        letter-spacing: 0.5px;
+        margin-left: 8px;
+        transition: background 0.3s, color 0.3s;
+      }
+      .email-pop:hover {
+        background: linear-gradient(90deg, #ffd700 0%, #ffe066 100%);
+        color: #7c4d00;
+        cursor: pointer;
+      }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 16px;
+        margin: 30px auto 20px auto;
+        max-width: 650px;
+        padding: 0 10px;
+      }
+      .gallery-img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .gallery-img:hover {
+        transform: scale(1.04);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+      }
+      .gallery-modal {
+        display: none;
+        position: fixed;
+        z-index: 1001;
+        left: 0; top: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.85);
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+        transition: opacity 0.3s;
+      }
+      .gallery-modal.fade-out {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .gallery-modal-content {
+        margin: auto;
+        display: block;
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        animation: fadeIn 0.3s;
+      }
+      .gallery-modal-content:hover {
+        transform: none !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
+      }
+      .gallery-close {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        color: #fff;
+        font-size: 2.5em;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1002;
+        text-shadow: 0 2px 8px #000;
+        transition: color 0.2s;
+      }
+      .gallery-close:hover {
+        color: #ffd700;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.96);}
+        to { opacity: 1; transform: scale(1);}
+      }
+      @media (max-width: 600px) {
+        .gallery {
+          grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+          gap: 8px;
+        }
+        .gallery-img {
+          height: 70px;
+        }
+        .gallery-close {
+          top: 10px;
+          right: 16px;
+          font-size: 2em;
+        }
+      }
     </style>
+    <script>
+      // Gallery modal logic
+      document.querySelectorAll('.gallery-img').forEach(img => {
+        img.addEventListener('click', function() {
+          const modal = document.getElementById('gallery-modal');
+          const modalImg = document.getElementById('gallery-modal-img');
+          modal.style.display = 'flex';
+          modal.classList.remove('fade-out');
+          modalImg.src = this.src;
+          modalImg.alt = this.alt;
+        });
+      });
+
+      function closeModalWithFade() {
+        const modal = document.getElementById('gallery-modal');
+        modal.classList.add('fade-out');
+        modal.addEventListener('transitionend', function handler() {
+          modal.style.display = 'none';
+          modal.classList.remove('fade-out');
+          modal.removeEventListener('transitionend', handler);
+        });
+      }
+
+      document.getElementById('gallery-close').onclick = closeModalWithFade;
+      document.getElementById('gallery-modal').onclick = function(e) {
+        if (e.target === this) closeModalWithFade();
+      };
+    </script>
   </body>
 </html>
