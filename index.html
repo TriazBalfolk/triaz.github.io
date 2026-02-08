@@ -419,11 +419,15 @@
       document.querySelectorAll('.gallery-img').forEach(img => {
         img.addEventListener('click', function() {
           const modal = document.getElementById('gallery-modal');
-          const modalImg = document.getElementById('gallery-modal-img');
+          document.getElementById('gallery-modal-img').remove();
+          const modalImg = document.createElement('img');
+          modalImg.id = 'gallery-modal-img';
+          modalImg.classList.add('gallery-modal-content');
           modal.style.display = 'flex';
-          modal.classList.remove('fade-out');
           modalImg.src = this.dataset.src;
           modalImg.alt = this.alt;
+          modal.append(modalImg);
+          modal.classList.remove('fade-out');
         });
       });
 
