@@ -45,16 +45,16 @@
       <hr style="border: 1px solid #efefef; margin: 20px auto; width: 80%;">
       <script>
         const shows = [
-          { date: '26.05.2025', city: 'Leipzig, Kulturnhalle' },
-          { date: '28.05.2025', city: 'Waldheim, Tanz & Verbindung Festival' },
-          { date: '04.09.2025', city: 'Simmelsdorf, Simmelfolk Festival' },
+          { date: '26.05.2025', city: 'Leipzig, Kulturnhalle', link: 'https://www.tanzvolk-leipzig.de/' },
+          { date: '28.05.2025', city: 'Waldheim, Tanz & Verbindung Festival', link: 'https://dckn.de/co-kreative-projekte/tanz-und-verbindung/' },
+          { date: '04.09.2025', city: 'Simmelsdorf, Simmelfolk Festival', link: 'https://dckn.de/co-kreative-projekte/simmelfolk-festival/' },
           { date: '10.10.2025', city: 'Halle, Galerie Temporaire' },
-          { date: '25.10.2025', city: 'Dresden, Gugelhupf' },
+          { date: '25.10.2025', city: 'Dresden, Gugelhupf', link: 'https://www.gugelhupf-dresden.de/' },
           { date: '22.11.2025', city: 'Halle-Trotha, St. Briccius' },
-          { date: '17.01.2026', city: 'Leipzig (tba)' },
-          { date: '28.02.2026', city: 'Hannover' },
-          { date: '13.03.2026', city: 'Chemnitz, Märztanz Festival' },
-          { date: '13.06.2026', city: 'Leipzig, Kulturnhalle (tba)' },  // ambiguous month
+          { date: '17.01.2026', city: 'Leipzig', link: 'https://www.tanzvolk-leipzig.de/' },
+          { date: '28.02.2026', city: 'Hannover', notes: 'Adresse und Anmeldung bei springkraut-balfolk@posteo.de' },
+          { date: '13.03.2026', city: 'Chemnitz, Märztanz Festival', link: 'https://dckn.de/co-kreative-projekte/maerztanz-festival/' },
+          { date: '13.06.2026', city: 'Leipzig, Kulturnhalle (tba)', link: 'https://www.tanzvolk-leipzig.de/' },  // ambiguous month
         ];
 
         // Helper to parse DD.MM.YYYY or ambiguous dates
@@ -96,7 +96,16 @@
             document.write(`<h3>${title}</h3>`);
             document.write('<ul>');
             shows.forEach(show => {
-              document.write(`<li>${show.date} - ${show.city}</li>`);
+              let line = `<strong>${show.date}</strong> - `;
+              if (show.link !== undefined) {
+                line += `<a href="${show.link}">${show.city}</a>`;
+              } else {
+                line += show.city;
+              }
+              if (show.notes !== undefined) {
+                 line += `<br/>${show.notes}`;
+              }
+              document.write(`<li>${line}</li>`);
             });
             document.write('</ul>');
           }
@@ -399,6 +408,9 @@
         height: 100%;
         border: 0;
         border-radius: 0; /* <-- add this line */
+      }
+      a {
+        color: white;
       }
     </style>
     <script>
