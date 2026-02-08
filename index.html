@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Triaz</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -11,7 +12,7 @@
   <body>
     <div class="animated-bg"></div>
     <div class="main-container">
-      <img src="triaz_logo.jpeg" alt="Triaz Logo" class="logo-img" style="display: block; margin: 0 auto; max-width: 400px; height: auto; border-radius: 15px;">
+      <img src="pictures/kulturnhalle_small.png" alt="Triaz in concert" style="display: block; margin: 0 auto; width: 100%; height: auto; border-radius: 15px;">
       
       <h1>Bal Folk aus Leipzig</h1>
       <p>
@@ -109,15 +110,14 @@
       <h2>Bildergalerie</h2>
       <div class="gallery">
         <!-- Add your images here -->
-        <img src="pictures/DSC_6890.JPG" alt="Galeriebild 1" class="gallery-img">
-        <img src="pictures/DSC_6891.JPG" alt="Galeriebild 2" class="gallery-img">
-        <img src="pictures/DSC_6896.JPG" alt="Galeriebild 3" class="gallery-img">
-        <img src="pictures/DSC_6918.JPG" alt="Galeriebild 4" class="gallery-img">
-        <img src="pictures/DSC_6919.JPG" alt="Galeriebild 5" class="gallery-img">
-        <img src="pictures/DSC_6923.JPG" alt="Galeriebild 6" class="gallery-img">
-        <img src="pictures/DSC_6924.JPG" alt="Galeriebild 7" class="gallery-img">
-        <img src="pictures/DSC_6925.JPG" alt="Galeriebild 8" class="gallery-img">
-        <img src="pictures/DSC_6929.JPG" alt="Galeriebild 9" class="gallery-img">
+        <img src="pictures/triaz_logo_small.png" data-src="pictures/triaz_logo.jpeg" alt="Triaz logo" class="gallery-img">
+        <img src="pictures/kulturnhalle_2_small.png" data-src="pictures/kulturnhalle_2.jpg" alt="Triaz in der Kulturnhalle" class="gallery-img">
+        <img src="pictures/DSC_6896_small.png" data-src="pictures/DSC_6896.JPG" alt="Triaz vor der Kulturnhalle" class="gallery-img">
+        <img src="pictures/DSC_6918_small.png" data-src="pictures/DSC_6918.JPG" alt="Triaz auf Tour" class="gallery-img">
+        <img src="pictures/DSC_6923_small.png" data-src="pictures/DSC_6923.JPG" alt="Triaz spinnt" class="gallery-img">
+        <img src="pictures/IMG_1806_small.png" data-src="pictures/IMG_1806.jpeg" alt="Jonathan" class="gallery-img">
+        <img src="pictures/IMG_1809_small.png" data-src="pictures/IMG_1809.jpeg" alt="David" class="gallery-img">
+        <img src="pictures/IMG_1895_small.png" data-src="pictures/IMG_1895.jpeg" alt="Antonin" class="gallery-img">
         
         <!-- Add/remove <img> tags as needed for your pictures -->
       </div>
@@ -408,7 +408,7 @@
           const modalImg = document.getElementById('gallery-modal-img');
           modal.style.display = 'flex';
           modal.classList.remove('fade-out');
-          modalImg.src = this.src;
+          modalImg.src = this.dataset.src;
           modalImg.alt = this.alt;
         });
       });
