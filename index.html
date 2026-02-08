@@ -12,7 +12,7 @@
   <body>
     <div class="animated-bg"></div>
     <div class="main-container">
-      <img src="pictures/kulturnhalle_small.png" alt="Triaz in concert" style="display: block; margin: 0 auto; width: 100%; height: auto; border-radius: 15px;">
+      <img src="pictures/kulturnhalle_small.png" alt="Triaz in concert" class="logo-img">
       
       <h1>Triaz</h1>
       <h3 style="text-align: center">Bal Folk aus Leipzig</h3>
@@ -194,12 +194,9 @@
       }
       .logo-img {
         display: block;
-        margin: 0 auto;
-        width: 500px;
-        max-width: 90vw;
+        width: 100%;
         height: auto;
         border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease;
       }
       /* Add shadow effect to logo */
@@ -265,15 +262,19 @@
         }
         .logo-img {
           width: 100%;
-          max-width: 98vw;
+          height: 250px;
+          object-fit: cover;
         }
         h1 {
-          font-size: 1.2em;
+          font-size: 1.3em;
           margin-top: 10px;
           text-align: center;
         }
         h2 {
           font-size: 1.1em;
+        }
+        h3 {
+          font-size: 1em;
         }
         p {
           font-size: 0.95em;
