@@ -1,2 +1,2 @@
 # triaz.github.io
-Website for Triaz
+Website for Triaz.
