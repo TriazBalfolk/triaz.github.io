@@ -202,6 +202,9 @@
           vertical-align: middle;
           border-radius: 0;
         }
+        a:hover img {
+          transform: scale(1.25);
+        }
       }
       .main-container {
         background-color: #232323;
@@ -223,7 +226,9 @@
         width: 100%;
         height: auto;
         border-radius: 15px;
-        transition: transform 0.3s ease;
+      }
+      .logo-img:hover {
+        transform: none;
       }
       /* Add shadow effect to logo */
       img {
@@ -424,7 +429,7 @@
       }
 
       .video img:hover {
-        transform: scale(1);
+        transform: none;
       }
 
       @media (max-width: 600px) {
